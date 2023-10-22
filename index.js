@@ -1,4 +1,4 @@
-var finances = [
+const finances = [ //changing from var to const, since I want the finance array to remain the same
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
   ['Mar-2010', 322013],
@@ -87,6 +87,10 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
+// Print required text/header for Financial Analysis
+console.log("Financial Analysis")
+console.log("-----------------------------")
+
 
 
 //The total number of months included in the dataset.
@@ -98,6 +102,46 @@ console.log("Total Months: " + numberOfMonths)
 var totalSumOfProfitLoss = 0
 
 for (var i = 0; i < finances.length; i++) {
-  totalSumOfProfitLoss = totalSumOfProfitLoss + (finances[i][1]);
+  totalSumOfProfitLoss += finances[i][1];
 }
 console.log("Total: $" + totalSumOfProfitLoss)
+
+
+//To do the next three requirements, we can store the changes of profit/loss(PL) in an array
+var changesProfitLoss = []
+var previousPLValue = 0
+
+for (var j = 0; j < finances.length; j++) {
+  changesProfitLoss.push(finances[j][1]-previousPLValue) //All values except the first value in array is correct and store the PL changes 
+  previousPLValue = finances[j][1]
+}
+var firstValue = changesProfitLoss.shift() //remove the first value from changesProfitLoss array
+//console.log(firstValue)            //test to check if the first value was removed
+// console.log(changesProfitLoss)    //test to visualise and check the values
+
+
+//The average of the changes in Profit/Losses over the entire period.
+var sumOfChanges = 0
+for  (var k = 0; k<changesProfitLoss.length; k++) {
+  sumOfChanges += changesProfitLoss[k]
+}
+averageChangeValue = sumOfChanges/changesProfitLoss.length
+console.log("Average Change: "+averageChangeValue.toFixed(2)) //limiting to 2 decimal places since this is a monetary value.
+
+
+//The greatest increase in profits (date and amount) over the entire period.
+
+for  (var l = 0; l<changesProfitLoss.length; l++) {
+  if (Math.max(...changesProfitLoss) == changesProfitLoss[l]) {
+    console.log("Greatest Increase in Profits/Losses: "+finances[l+1][0]+" ($"+Math.max(...changesProfitLoss)+")")
+    break;
+  }
+}
+
+//The greatest decrease in profits (date and amount) over the entire period.
+for  (var l = 0; l<changesProfitLoss.length; l++) {
+  if (Math.min(...changesProfitLoss) == changesProfitLoss[l]) {
+    console.log("Greatest Decrease in Profits/Losses: "+finances[l+1][0]+" ($"+Math.min(...changesProfitLoss)+")")
+    break;
+  }
+}
