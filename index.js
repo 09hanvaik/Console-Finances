@@ -1,4 +1,4 @@
-const finances = [ //changing from var to const, since I want the finance array to remain the same
+var finances = [ 
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
   ['Mar-2010', 322013],
@@ -115,9 +115,7 @@ for (var j = 0; j < finances.length; j++) {
   changesProfitLoss.push(finances[j][1]-previousPLValue) //All values except the first value in array is correct and store the PL changes 
   previousPLValue = finances[j][1]
 }
-var firstValue = changesProfitLoss.shift() //remove the first value from changesProfitLoss array
-//console.log(firstValue)            //test to check if the first value was removed
-// console.log(changesProfitLoss)    //test to visualise and check the values
+changesProfitLoss.shift() //remove the first value from changesProfitLoss array
 
 
 //The average of the changes in Profit/Losses over the entire period.
@@ -130,10 +128,9 @@ console.log("Average Change: "+averageChangeValue.toFixed(2)) //limiting to 2 de
 
 
 //The greatest increase in profits (date and amount) over the entire period.
-
 for  (var l = 0; l<changesProfitLoss.length; l++) {
   if (Math.max(...changesProfitLoss) == changesProfitLoss[l]) {
-    console.log("Greatest Increase in Profits/Losses: "+finances[l+1][0]+" ($"+Math.max(...changesProfitLoss)+")")
+    console.log("Greatest Increase in Profits/Losses: "+finances[l+1][0]+" ($"+Math.max(...changesProfitLoss)+")") // month/year finances[l+1][0] is l+1 since the values were shifted one index down after changesProfitLoss.shift()
     break;
   }
 }
@@ -141,7 +138,7 @@ for  (var l = 0; l<changesProfitLoss.length; l++) {
 //The greatest decrease in profits (date and amount) over the entire period.
 for  (var l = 0; l<changesProfitLoss.length; l++) {
   if (Math.min(...changesProfitLoss) == changesProfitLoss[l]) {
-    console.log("Greatest Decrease in Profits/Losses: "+finances[l+1][0]+" ($"+Math.min(...changesProfitLoss)+")")
+    console.log("Greatest Decrease in Profits/Losses: "+finances[l+1][0]+" ($"+Math.min(...changesProfitLoss)+")") // month/year finances[l+1][0] is l+1 since the values were shifted one index down after changesProfitLoss.shift()
     break;
   }
 }
